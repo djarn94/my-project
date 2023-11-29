@@ -10,7 +10,6 @@ jobs:
       - name: Setup Python 3.11
         uses: actions/setup-python@v3
         with:
-          error-on-no-successful-workflow: true
           python-version: '3.11.0'
       - name: Install Dependencies
         run: pip install -r requirements.txt
