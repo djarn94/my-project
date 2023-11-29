@@ -4,16 +4,32 @@
 <summary>Solution components :</summary>
  1. To setup the CD I followed the following guide : https://devpress.csdn.net/cicd/62ec237989d9027116a10405.html the steps were perfectly described.
  
- 2. To make sure the deploy is only being done when the test is complete I used the following code inside the deploy.yml file :
+ 2. To make sure the deploy is only being done when the test succeeded I added the following code to run-tests.yml :
 
-        on: 
-            workflow_run:
-             workflows: ["Run Tests"]
-              types:
-               - completed
+         if: success()
+    
+           - uses: actions/checkout@v1
+           - name: Copy repository contents via scp
+             uses: appleboy/scp-action@master
+             with:
+    
+               host: ${{ secrets.HOST }}
+               username: ${{ secrets.USERNAME }}
+               port: ${{ secrets.PORT }}
+               key: ${{ secrets.SSHKEY }}
+               source: "."
+               target: "/var/www/html"
+           - name: Executing remote command
+             uses: appleboy/ssh-action@master
+             with:
+               host: ${{ secrets.HOST }}
+               USERNAME: ${{ secrets.USERNAME }}
+               PORT: ${{ secrets.PORT }}
+               KEY: ${{ secrets.SSHKEY }}
+               script: ls
 </code>
 
-3. Search the web for a example requirement.txt file copied it, run tests launched and failed. alot of python modules but pytest was missing, added it to the txt file.
+4. Search the web for a example requirement.txt file copied it, run tests launched and failed. alot of python modules but pytest was missing, added it to the txt file.
 </details>
 
 <details>
