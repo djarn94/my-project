@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["Run Tests"]
     types:
-     - completed
+     - success
 
 jobs:
   build:
