@@ -29,7 +29,7 @@
                script: ls
 </code>
 
-4. Search the web for a example requirement.txt file copied it, run tests launched and failed. alot of python modules but pytest was missing, added it to the txt file.
+3. Search the web for a example requirement.txt file copied it, run tests launched and failed. alot of python modules but pytest was missing, added it to the txt file.
 </details>
 
 <details>
