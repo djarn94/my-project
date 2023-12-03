@@ -6,27 +6,27 @@
  
  2. To make sure the deploy is only being done when the test succeeded I added the following code to run-tests.yml :
 
-         if: success()
-    
-           - uses: actions/checkout@v1
-           - name: Copy repository contents via scp
-             uses: appleboy/scp-action@master
-             with:
-    
-               host: ${{ secrets.HOST }}
-               username: ${{ secrets.USERNAME }}
-               port: ${{ secrets.PORT }}
-               key: ${{ secrets.SSHKEY }}
-               source: "."
-               target: "/var/www/html"
-           - name: Executing remote command
-             uses: appleboy/ssh-action@master
-             with:
-               host: ${{ secrets.HOST }}
-               USERNAME: ${{ secrets.USERNAME }}
-               PORT: ${{ secrets.PORT }}
-               KEY: ${{ secrets.SSHKEY }}
-               script: ls
+        if: success()
+      - uses: actions/checkout@v1
+  
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSHKEY }}
+          source: "."
+          target: "/home/"
+  
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          script: bash /home/server_deploy.sh
 </code>
 
 3. Search the web for a example requirement.txt file copied it, run tests launched and failed. alot of python modules but pytest was missing, added it to the txt file.
