@@ -7,9 +7,9 @@
  2. To make sure the deploy is only being done when the test succeeded I added the following code to run-tests.yml :
 
         if: success()
-      - uses: actions/checkout@v1
+        - uses: actions/checkout@v1
   
-      - name: Copy repository contents via scp
+        - name: Copy repository contents via scp
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -19,7 +19,7 @@
           source: "."
           target: "/home/"
   
-      - name: Executing remote command
+        - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
